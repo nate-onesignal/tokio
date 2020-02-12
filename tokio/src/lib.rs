@@ -292,6 +292,12 @@
 //! }
 //! ```
 
+lazy_static::lazy_static! {
+    /// Implementation detail
+    pub static ref ENTRY_BACKTRACE_SENDER: crate::sync::broadcast::Sender<backtrace::Backtrace> =
+        crate::sync::broadcast::channel(1000).0;
+}
+
 // Includes re-exports used by macros.
 //
 // This module is not intended to be part of the public API. In general, any

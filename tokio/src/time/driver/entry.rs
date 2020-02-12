@@ -105,6 +105,9 @@ const ERROR: u64 = u64::MAX;
 
 impl Entry {
     pub(crate) fn new(handle: &Handle, deadline: Instant, duration: Duration) -> Arc<Entry> {
+        let backtrace = backtrace::Backtrace::new_unresolved();
+        let _ = crate::ENTRY_BACKTRACE_SENDER.send(backtrace);
+
         let inner = handle.inner().unwrap();
         let entry: Entry;
 
